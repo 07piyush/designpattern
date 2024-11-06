@@ -1,11 +1,11 @@
 package practiceDesignPattern;
 
-import creationalDesignPattern.adapter.AudioPlayer;
 import creationalDesignPattern.builder.Phone;
 import creationalDesignPattern.builder.PhoneBuilder;
 import creationalDesignPattern.factory.Vehicle;
 import creationalDesignPattern.factory.VehicleFactory;
 import creationalDesignPattern.factory.VehicleType;
+import structuralDesignPattern.adapter.AudioPlayer;
 
 public class Start {
 

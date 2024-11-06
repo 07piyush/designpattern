@@ -1,4 +1,4 @@
-package creationalDesignPattern.adapter;
+package structuralDesignPattern.adapter;
 
 public class AudioPlayer implements MediaPlayer{
 
