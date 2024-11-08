@@ -2,6 +2,7 @@ package practiceDesignPattern;
 
 import creationalDesignPattern.abstractFactory.DesertFactory;
 import creationalDesignPattern.abstractFactory.DesertVehicle;
+import creationalDesignPattern.abstractFactory.DesertWeapon;
 import creationalDesignPattern.abstractFactory.RegionFactory;
 import creationalDesignPattern.abstractFactory.SnowFactory;
 import creationalDesignPattern.builder.Phone;
@@ -9,6 +10,7 @@ import creationalDesignPattern.builder.PhoneBuilder;
 import creationalDesignPattern.factory.Vehicle;
 import creationalDesignPattern.factory.VehicleFactory;
 import creationalDesignPattern.factory.VehicleType;
+import creationalDesignPattern.prototype.Rifle;
 import structuralDesignPattern.adapter.AudioPlayer;
 
 public class Start {
@@ -33,7 +35,7 @@ public class Start {
 		Phone iphone = new PhoneBuilder().setStorage(256).setBrand("apple").getPhone();
 		iphone.getConfigurations();
 		
-		//3. Abstract factory
+		//3. Abstract factory : Creational
 		/*
 		 * Provides interface for creating families of related/dependent objects 
 		 * without specifying their concrete classes.
@@ -41,7 +43,7 @@ public class Start {
 		 * E.g pubg game can have different entities like weapons and vehicle.
 		 * there may be different regions/environments like dessert, snow, forest etc.
 		 * depending on region there can be different type of entities with different behavior.
-		 * like a dessertWeapon are snipper category, snowWeapns are machineGuns etc
+		 * like a dessertWeapon are sniper category, snowWeapns are machineGuns etc
 		 * and a dessertVehicle are suv category, snowVehicle are roller etc
 		 * 
 		 * so depending on region weapon, vehicle etc entities are related.
@@ -60,8 +62,25 @@ public class Start {
         //using above factories create objects of entities and supply to individual game environments.
         //there can be multple rooms, of different regions with different set of players in parallel.
 		DesertVehicle suv = (DesertVehicle) desertFactory.createVehicle();
+		DesertWeapon gun = (DesertWeapon) desertFactory.createWeapon();
+		gun.shoot();
 		suv.start();
         suv.move();
+        
+        //4. Prototype : Creational
+        Rifle basicSniper = new Rifle();
+        
+        try {
+        	Rifle intermediateSniper = (Rifle) basicSniper.clone();
+        	intermediateSniper.attachScope("4x");
+        	
+			Rifle advanceSniper = (Rifle) basicSniper.clone();
+			advanceSniper.attachScope("8x");
+			
+		} catch (CloneNotSupportedException e) {
+			System.out.println("Rifle could not be cloned" + e);
+		}
+        
 		
 		//3. adaptor : structural
 		//AudioPlayer is already existing class implementing MediaPlayer.
