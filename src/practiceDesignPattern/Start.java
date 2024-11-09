@@ -1,5 +1,21 @@
 package practiceDesignPattern;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
+/*
+ * Creational design patterns are a category of design patterns focused on managing the process of 
+ * object creation. Instead of directly instantiating objects, these patterns provide ways to create 
+ * objects that are flexible, scalable, and optimized for specific use cases. They aim to abstract the 
+ * instantiation process, making systems more adaptable to changing requirements and enhancing object reuse.
+ * 
+ * Structural Design Pattern, 
+ * 
+ * 
+ * Behavioral Design pattern,
+ * 
+ * */
+
 import creationalDesignPattern.abstractFactory.DesertFactory;
 import creationalDesignPattern.abstractFactory.DesertVehicle;
 import creationalDesignPattern.abstractFactory.DesertWeapon;
@@ -11,6 +27,7 @@ import creationalDesignPattern.factory.Vehicle;
 import creationalDesignPattern.factory.VehicleFactory;
 import creationalDesignPattern.factory.VehicleType;
 import creationalDesignPattern.prototype.Rifle;
+import creationalDesignPattern.singleton.ConnectionPoolManager;
 import structuralDesignPattern.adapter.AudioPlayer;
 
 public class Start {
@@ -68,6 +85,13 @@ public class Start {
         suv.move();
         
         //4. Prototype : Creational
+        /*
+         * 1. Allows to create object by cloning existing object. rather than creating from scratch.
+         * Advantages : 
+         * Reduce object creation time.
+         * Simplify customization 
+         * 
+         * */
         Rifle basicSniper = new Rifle();
         
         try {
@@ -81,6 +105,23 @@ public class Start {
 			System.out.println("Rifle could not be cloned" + e);
 		}
         
+        //5. Singleton Design pattern.
+        /*
+         * singleton pattern ensures there exists exactly one instance of a class throughout the lifecycle.
+         * and also provide global point of access for that instance.
+         * This instance can be created only when needed. (lazy initialization.)
+         * 
+         * Best example of singleton is a connection pool manager, since creating a new
+         * connection is a time and resources expensive task, so idea is to have a queue
+         * of connections and provide an interface to clients to fetch connections from the pool.
+         * 
+         * since this pool has to be available to all the clients throughout the lifecycle
+         * hence there must be only one instance of manager.
+         * */
+        ConnectionPoolManager manager = ConnectionPoolManager.getInstance();
+        Connection connection = manager.getConnection();
+        //do some database querying.
+        manager.releaseConnection(connection);
 		
 		//3. adaptor : structural
 		//AudioPlayer is already existing class implementing MediaPlayer.
