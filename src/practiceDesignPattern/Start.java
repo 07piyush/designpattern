@@ -29,6 +29,10 @@ import creationalDesignPattern.factory.VehicleType;
 import creationalDesignPattern.prototype.Rifle;
 import creationalDesignPattern.singleton.ConnectionPoolManager;
 import structuralDesignPattern.adapter.AudioPlayer;
+import structuralDesignPattern.bridge.Circle;
+import structuralDesignPattern.bridge.RasterRenderer;
+import structuralDesignPattern.bridge.Rectangle;
+import structuralDesignPattern.bridge.VectorRenderer;
 
 public class Start {
 
@@ -77,7 +81,7 @@ public class Start {
 		RegionFactory desertFactory = new DesertFactory();
         RegionFactory snowFactory = new SnowFactory();
         //using above factories create objects of entities and supply to individual game environments.
-        //there can be multple rooms, of different regions with different set of players in parallel.
+        //there can be multiple rooms, of different regions with different set of players in parallel.
 		DesertVehicle suv = (DesertVehicle) desertFactory.createVehicle();
 		DesertWeapon gun = (DesertWeapon) desertFactory.createWeapon();
 		gun.shoot();
@@ -123,9 +127,24 @@ public class Start {
         //do some database querying.
         manager.releaseConnection(connection);
 		
-		//3. adaptor : structural
+        //STRCUTURAL
+		//1. adapter : structural
 		//AudioPlayer is already existing class implementing MediaPlayer.
 		//Add support of VideoPlayer which has different method signature.
+        /*
+         * E.g 2: adding support of payment gateway.
+         * we might want to have support of PhonePe, GPay, paytm etc.
+         * each payment platform have their own api for a transaction related tasks.
+         * Eg. : PhonePe have : makePayment(long amount)
+         * 		 Gpay have : initiatePayment(long amount) and 
+         * 		 Paytm may have : startPayment(long amount).
+         * 
+         * to create maintainable and simple system there must be one interface to interact with
+         * all payment platforms. To achieve this, we create an adapter class for each platform.
+         * PhonePeAdapter, GpayAdapter, PaytmAdapter. these classes should implement an interface,
+         * that contains methods required for payment related operations in our system.
+         * 
+         * */
 		AudioPlayer adPlayer = new AudioPlayer();
 		adPlayer.play("mp3", "usr/local/song1.mp4");
 		adPlayer.play("3gp", "usr/local/song2.3gp");
@@ -133,6 +152,48 @@ public class Start {
 		//Made existing audioPlayer to play video as well. 
 		AudioPlayer player = new AudioPlayer();
 		player.play("mp4", "usr/local/video.mp4");
+		
+		//2. Bridge 
+		/*
+		 * It separates the abstraction from its implementation.
+		 * abstraction : a high level layer, that defines what something does.
+		 * implementation : a low level layer, that defines how it does.
+		 * 
+		 * In a shape drawing system, which can draw different shapes using vector or raster rendering type.
+		 * vector (for high-quality scalable graphics) and raster (for pixel-based graphics).
+		 * we might create an interface Shape, that will define what it does. draw(), refresh() etc
+		 * and shapes circle, rectangle, etc 'is-a' child of Shape.
+		 * so each shape must implement its own logic of shape along with how it draws.
+		 * to achieve this, it will require to have separate classes :
+		 * CircleVector, CircleRaster, RectangleVector, RectangleRaster.
+		 * 
+		 * Problem : with increase in number of supported shapes and rendering type, we will need to create
+		 * more and more classes, hence increased management. 
+		 * 
+		 * Solution :
+		 * Shape is the abstraction because it defines what shapes do but not how they’re rendered
+		 * Renderer is the implementation as it defines how the shapes are drawn (vector, raster, etc.).
+		 * 
+		 * we must have a separate interface for Rendering, allowing to plug-in new renderer in future.
+		 * 
+		 * 2. create Implementation : Renderer. (one end of bridge)
+		 * 4. create abstraction. : Shape 'has-a' Renderer. (Bridge)
+		 * 1. create concrete abstraction : Circle : Shape, Rectangle : Shape etc. (another end of bridge)
+		 * 3. create concrete implementations : VectorRenderer : Renderer, RasterRenderer : Renderer.
+		 * 
+		 * */
+		RasterRenderer rasterDisplay = new RasterRenderer();
+		VectorRenderer vectorDisplay = new VectorRenderer();
+		
+		Circle vectorCircle = new Circle(vectorDisplay);
+		vectorCircle.draw();
+		Circle rasterCircle = new Circle(rasterDisplay);
+		rasterCircle.draw();
+		
+		Rectangle vectorRectangle = new Rectangle(vectorDisplay);
+		vectorRectangle.draw();
+		Rectangle rasterRectangle = new Rectangle(rasterDisplay);
+		rasterRectangle.draw();
 	}
 
 }
