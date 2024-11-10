@@ -33,6 +33,9 @@ import structuralDesignPattern.bridge.Circle;
 import structuralDesignPattern.bridge.RasterRenderer;
 import structuralDesignPattern.bridge.Rectangle;
 import structuralDesignPattern.bridge.VectorRenderer;
+import structuralDesignPattern.composite.CompositeShapes;
+import structuralDesignPattern.composite.Square;
+import structuralDesignPattern.composite.Triangle;
 
 public class Start {
 
@@ -194,6 +197,48 @@ public class Start {
 		vectorRectangle.draw();
 		Rectangle rasterRectangle = new Rectangle(rasterDisplay);
 		rasterRectangle.draw();
+		
+		//3. Composite
+		/*
+		 * It deals with hierarchy. when when individual objects, and group of objects should be treated
+		 * uniformly.
+		 * 
+		 * E.g : Entity : grouping shapes : circles, rectangles, lines. and applying same common change to 
+		 * that group.
+		 * if not used composite design, applying an operation will be required to be done on individual 
+		 * shape manually. Eg. circle1.move(3,4) circle2.move(3,4), rectangle1.move(3,4), rectangle2.move(3,4)
+		 * etc.
+		 * 
+		 * Real world : in a graphic design application, we have entities like circle, rectangle.
+		 * at initial level, we might want to have a shape class, and circle, rectangle implement it.
+		 * now directly exposing shape to clients will not help the client to create groups of shapes, and
+		 * apply some common operations on those shapes efficiently.
+		 * 
+		 * instead, we can create a composite design, and client will use that composition to apply
+		 * required operations on groups he created. 
+		 * 
+		 * */
+		Square square = new Square();
+		Triangle triangle = new Triangle();
+		
+		CompositeShapes groupOne = new CompositeShapes();
+		groupOne.addShape(square);
+		groupOne.addShape(triangle);
+		
+		groupOne.move(0, 0);
+		groupOne.move(14, 90);
+		
+		CompositeShapes groupTwo = new CompositeShapes();
+		groupTwo.addShape(square);
+		groupTwo.addShape(triangle);
+		
+		groupTwo.move(3, 3);
+		groupTwo.move(20, 100);
+		
+		CompositeShapes nestedGroup = new CompositeShapes();
+		nestedGroup.addShape(groupOne);
+		nestedGroup.addShape(groupTwo);
+		
+		nestedGroup.move(40, 40);
 	}
-
 }
