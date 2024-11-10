@@ -36,6 +36,10 @@ import structuralDesignPattern.bridge.VectorRenderer;
 import structuralDesignPattern.composite.CompositeShapes;
 import structuralDesignPattern.composite.Square;
 import structuralDesignPattern.composite.Triangle;
+import structuralDesignPattern.decorator.CaramelDecorator;
+import structuralDesignPattern.decorator.Coffee;
+import structuralDesignPattern.decorator.MilkDecorator;
+import structuralDesignPattern.decorator.SimpleCoffee;
 
 public class Start {
 
@@ -240,5 +244,31 @@ public class Start {
 		nestedGroup.addShape(groupTwo);
 		
 		nestedGroup.move(40, 40);
+		
+		//4. Decorator
+		/*
+		 * Idea is quite simple. when ever an object can have a usecase of upgrade/downgrade of 
+		 * at runtime, then rather than having individual classes of each possible upgraded and
+		 * downgraded versions of that object, we build up or build it down (decorate/un-decorate)
+		 * the object.
+		 * 
+		 * E.g : Coffee ordering system.
+		 * there can be basic coffee, and there may be add-ons available.
+		 * to create a coffee order, user will choose a coffee(baisc) and add some add-ons(decorations) like 
+		 * whip, choco-chip, sprinkler, sugar etc.
+		 * 
+		 * without decorator design classes are: BasicCoffee, CoffeeWithSugar, CoffeeWithWhipedCream,
+		 * CoffeeWithChocoChip etc. which is very in flexible, difficult to change/add addons.
+		 * 
+		 * Decorator : create an interface Coffee (behavior:getPrice, getDescription),
+		 * now each individual decorators will 'have-a' Coffee relationship with Coffee.
+		 * that means, a composition.
+		 * 
+		 * */
+		Coffee coffee = new SimpleCoffee();
+		coffee = new MilkDecorator(coffee);
+		coffee = new CaramelDecorator(coffee);
+		
+		System.out.println("Coffee : " + coffee.getDescription()+ "| Price : " + coffee.getPrice());	
 	}
 }
