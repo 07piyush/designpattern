@@ -269,6 +269,19 @@ public class Start {
 		coffee = new MilkDecorator(coffee);
 		coffee = new CaramelDecorator(coffee);
 		
-		System.out.println("Coffee : " + coffee.getDescription()+ "| Price : " + coffee.getPrice());	
+		System.out.println("Coffee : " + coffee.getDescription()+ "| Price : " + coffee.getPrice());
+		
+		//5. Facade (meaning : the front wall of a large building that you see from the outside)
+		/*
+		 * Provides a simplified interface to a complex subsystem.
+		 * 
+		 * E.g : for a crypto buying platform, from client we wish to buy a crypto, but that will require
+		 * to use other prerequisite APIs like check current rate, check available balance, etc.
+		 * 
+		 * Facade will make other related work to be done by facade class, and not expose it to client directly
+		 * making the usage simple readable.
+		 * 
+		 * 
+		 * */
 	}
 }
