@@ -40,6 +40,12 @@ import structuralDesignPattern.decorator.CaramelDecorator;
 import structuralDesignPattern.decorator.Coffee;
 import structuralDesignPattern.decorator.MilkDecorator;
 import structuralDesignPattern.decorator.SimpleCoffee;
+import structuralDesignPattern.facade.AuthenticationService;
+import structuralDesignPattern.facade.MarketService;
+import structuralDesignPattern.facade.NotificationService;
+import structuralDesignPattern.facade.OrderService;
+import structuralDesignPattern.facade.PurchaseCryptoFacade;
+import structuralDesignPattern.facade.WalletService;
 
 public class Start {
 
@@ -280,8 +286,19 @@ public class Start {
 		 * 
 		 * Facade will make other related work to be done by facade class, and not expose it to client directly
 		 * making the usage simple readable.
-		 * 
-		 * 
+		 *
 		 * */
+		
+		AuthenticationService authService = new AuthenticationService();
+        WalletService walletService = new WalletService();
+        MarketService marketService = new MarketService();
+        OrderService orderService = new OrderService();
+        NotificationService notificationService = new NotificationService();
+
+        // Facade
+        PurchaseCryptoFacade cryptoBuyFacade = new PurchaseCryptoFacade(authService, walletService, marketService, orderService, notificationService);
+
+        // Buying crypto
+        cryptoBuyFacade.purchaseCrypto("user123", "password", "Bitcoin", 0.1);
 	}
 }
