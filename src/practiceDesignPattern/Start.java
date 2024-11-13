@@ -46,6 +46,9 @@ import structuralDesignPattern.facade.NotificationService;
 import structuralDesignPattern.facade.OrderService;
 import structuralDesignPattern.facade.PurchaseCryptoFacade;
 import structuralDesignPattern.facade.WalletService;
+import structuralDesignPattern.flyweight.Tree;
+import structuralDesignPattern.flyweight.TreeFactory;
+import structuralDesignPattern.flyweight.TreeType;
 
 public class Start {
 
@@ -300,5 +303,35 @@ public class Start {
 
         // Buying crypto
         cryptoBuyFacade.purchaseCrypto("user123", "password", "Bitcoin", 0.1);
+        
+        //6. Flyweight (meaning : light weight)
+        /*
+         * The aim is to minimize memory usage as much as possible, by sharing data among the objects
+         * which is common to them. 
+         * E.g : in pubg game, there are thousands of tree, but only limited unique type of trees.
+         * so instead of creating new object to render it, we must reuse some info.
+         * 
+         * there are two types of information in an object : 
+         * 1. intrinsic : common/constant to all (core information) 
+         * 2. extrinsic : unique to an instance.
+         * 
+         * Design :
+         * 1. flyweight : defines the shared interface and intrinsic info.
+         * 2. concreteFlyweight : implements the flyweight, holding intrinsic data.
+         * 3. flyweightFactory : manages fly. objects, and ensures sharing of objects by reusing.
+         * 4. client : user.
+         * 
+         * 
+         * */
+        TreeType oakType = TreeFactory.getTreeType("Oak", "Green", "Rough");
+        TreeType pineType = TreeFactory.getTreeType("Pine", "Green", "Smooth");
+
+        Tree oakTree1 = new Tree(5, 10, oakType);
+        Tree oakTree2 = new Tree(15, 20, oakType);
+        Tree pineTree = new Tree(10, 15, pineType);
+
+        oakTree1.display();
+        oakTree2.display();
+        pineTree.display();
 	}
 }
