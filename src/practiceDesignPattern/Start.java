@@ -49,6 +49,8 @@ import structuralDesignPattern.facade.WalletService;
 import structuralDesignPattern.flyweight.Tree;
 import structuralDesignPattern.flyweight.TreeFactory;
 import structuralDesignPattern.flyweight.TreeType;
+import structuralDesignPattern.proxy.Image;
+import structuralDesignPattern.proxy.ProxyImage;
 
 public class Start {
 
@@ -312,10 +314,20 @@ public class Start {
          * so instead of creating new object to render it, we must reuse some info.
          * 
          * there are two types of information in an object : 
-         * 1. intrinsic : common/constant to all (core information) 
+         * 1. intrinsic : common/constant to all (core values) 
          * 2. extrinsic : unique to an instance.
          * 
+         * NOTE : apply this only when we are sure that certain information is duplicating in each 
+         * object. The design is merely for optimization must be used carefully.
+         * 
          * Design :
+         * Idea is to stop storing the states that rarely changes in actual object, and move that info
+         * to separate object and share that object among others.
+         * 
+         * here, in pubg letsay there are total 1000 trees in cache to be rendered along with other objects.
+         * 1000 tree object each tree can be only of a limited type. so let each Tree hold reference to its 
+         * type. and a factory should create a pool of flyweight objects of required types.
+         * 
          * 1. flyweight : defines the shared interface and intrinsic info.
          * 2. concreteFlyweight : implements the flyweight, holding intrinsic data.
          * 3. flyweightFactory : manages fly. objects, and ensures sharing of objects by reusing.
@@ -333,5 +345,26 @@ public class Start {
         oakTree1.display();
         oakTree2.display();
         pineTree.display();
+        
+        //7. Proxy.
+        /*
+         * Proxy provides an intermediary between end user and the underlying object.
+         * Proxy can do multiple tasks. 1. access control 2. caching 3. lazy loading etc.
+         * Based on usecase there are various types of proxy :
+         * 
+         * Virtual Proxy : Manages creation and access to expensive objects. E.g (thumbnail vs actual image)
+         * Protection Proxy : Controls access based on permission.
+         * Remote Proxy : Allows local client to use Remote servers as if they are locally available.
+         * Cache Proxy : Allows caching results of operations that are expensive, to reduce API calls.
+         *   
+         * */
+        
+        Image image = new ProxyImage("/local/images/HighResImage1.jpeg");
+        //loads the image from db.
+        image.display();
+        System.out.println("displaying image..");
+        //only display the image, as its has been loaded already.
+        image.display();
+        System.out.println("displaying image...");
 	}
 }
