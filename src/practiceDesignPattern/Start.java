@@ -57,11 +57,21 @@ public class Start {
 	public static void main(String[] args) {
 		
 		//1. factory: Creational 
-		//Client do not need to worry about how end product is created. only factory.
-		//loose coupling with product.
-		//new products/classes of product can be easily added.
-		//i.e. Supports open/close principle.
-		//Centralized object creation, hence ease of management and debugging.
+		/*
+		 *
+		 * Centralized object creation, hence ease of management and debugging.
+		 * 
+		 * 1. create abstract product : high level behavior of end product.
+		 * 2. create concrete products : classes that are implementation of high level product.
+		 * 3. create Factory. : class that will return a concrete product. it can be abstract or static.
+		 * 
+		 * Pros : 
+		 * 	Abstraction | Client do not need to worry about how end product is created.
+		 * 		S : factory only responsible to create objects.
+		 * 		O : new products/classes of product can be easily added without modifying existing code.
+		 * 		D : dependency inversion, client does not depend on specifics of Car/Bus/Truck. 	
+		 * 			
+		 * */
 		Vehicle bike = VehicleFactory.getVehicle(VehicleType.BIKE);
 		bike.move();
 		
@@ -110,8 +120,14 @@ public class Start {
         /*
          * 1. Allows to create object by cloning existing object. rather than creating from scratch.
          * Advantages : 
-         * Reduce object creation time.
-         * Simplify customization 
+         * Reduce object creation time, by avoiding any complex initialization logic execution for each obj.
+         * Simplify customization. make creation of base object as abstract and allow client to customize.
+         * 
+         * 1. create abstract product which is cloneable, and override clone method.
+         * 2. create concrete classes. (no specific detail required for cloning)
+         * 3. client usage.
+         * 
+         * 
          * 
          * */
         Rifle basicSniper = new Rifle();
@@ -366,5 +382,6 @@ public class Start {
         //only display the image, as its has been loaded already.
         image.display();
         System.out.println("displaying image...");
+        
 	}
 }

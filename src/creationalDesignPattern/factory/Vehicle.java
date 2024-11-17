@@ -2,7 +2,7 @@ package creationalDesignPattern.factory;
 
 public interface Vehicle {
 
-	//Vehicle interface make sure, the instantiation logic 
+	//Vehicle interface makes sure the instantiation logic 
 	void move();
 	
 /*
