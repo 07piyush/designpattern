@@ -3,6 +3,11 @@ package practiceDesignPattern;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import behavioral.CreditCardPayment;
+import behavioral.CryptoPayment;
+import behavioral.PaymentProcessor;
+import behavioral.PaymentStrategy;
+
 /*
  * Creational design patterns are a category of design patterns focused on managing the process of 
  * object creation. Instead of directly instantiating objects, these patterns provide ways to create 
@@ -382,6 +387,47 @@ public class Start {
         //only display the image, as its has been loaded already.
         image.display();
         System.out.println("displaying image...");
+        
+        //Behavioral Design Pattern
+        /*
+         * These patterns focus on how objects interact with each other. To make interaction more flexible 
+         * and dynamic by defining clear responsibilities and reducing tight coupling.
+         * 
+         *  - separate the object and its possible behaviors to choose a behavior dynamically.
+         *  - simplify interactions by introducing intermediaries or reusable behavior patterns.
+         *  - allows to change how objects behave without modifying the source code of object.
+         * 
+         * */
+        
+        //1. Strategy Pattern
+        /*
+         * Strategy pattern suggests that you take a class that does something in a lot of different ways.
+         * and extract all of these algorithms into separate classes called Strategies.
+         * 
+         * The original class called 'context' should have a reference to a strategy. the 'context' delegates
+         * the work to a linked strategy instead of executing on its own.
+         * 
+         * 'Context' is not responsible to selecting a strategy instead client should select what strategy
+         * must be used.
+         * 
+         * Key components : 
+         * 1. Strategy interface : a high level operation that can be done in different ways.
+         * 2. Concrete strategy : implementations of different ways.
+         * 3. context class : holds reference to one of the strategy, and communicates via strategy interface.
+         * 
+         * E.g : For a online shopping platform, we need to support multiple types of payment methods.
+         * when creating first supported payment method, say credit card, rather than directly using an object
+         * that takes amount and process the payment, we will use strategy pattern.
+         * 
+         * client should decide the payment strategy. 
+         * 
+         * */
+        PaymentProcessor processor = new PaymentProcessor();
+        processor.setPaymentStrategy(new CreditCardPayment());
+        processor.processPayment(666);
+        
+        processor.setPaymentStrategy(new CryptoPayment());
+        processor.processPayment(12);
         
 	}
 }
