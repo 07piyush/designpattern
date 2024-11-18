@@ -3,59 +3,45 @@ package practiceDesignPattern;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import behavioral.CreditCardPayment;
-import behavioral.CryptoPayment;
-import behavioral.PaymentProcessor;
-import behavioral.PaymentStrategy;
-
-/*
- * Creational design patterns are a category of design patterns focused on managing the process of 
- * object creation. Instead of directly instantiating objects, these patterns provide ways to create 
- * objects that are flexible, scalable, and optimized for specific use cases. They aim to abstract the 
- * instantiation process, making systems more adaptable to changing requirements and enhancing object reuse.
- * 
- * Structural Design Pattern, 
- * 
- * 
- * Behavioral Design pattern,
- * 
- * */
-
-import creationalDesignPattern.abstractFactory.DesertFactory;
-import creationalDesignPattern.abstractFactory.DesertVehicle;
-import creationalDesignPattern.abstractFactory.DesertWeapon;
-import creationalDesignPattern.abstractFactory.RegionFactory;
-import creationalDesignPattern.abstractFactory.SnowFactory;
-import creationalDesignPattern.builder.Phone;
-import creationalDesignPattern.builder.PhoneBuilder;
-import creationalDesignPattern.factory.Vehicle;
-import creationalDesignPattern.factory.VehicleFactory;
-import creationalDesignPattern.factory.VehicleType;
-import creationalDesignPattern.prototype.Rifle;
-import creationalDesignPattern.singleton.ConnectionPoolManager;
-import structuralDesignPattern.adapter.AudioPlayer;
-import structuralDesignPattern.bridge.Circle;
-import structuralDesignPattern.bridge.RasterRenderer;
-import structuralDesignPattern.bridge.Rectangle;
-import structuralDesignPattern.bridge.VectorRenderer;
-import structuralDesignPattern.composite.CompositeShapes;
-import structuralDesignPattern.composite.Square;
-import structuralDesignPattern.composite.Triangle;
-import structuralDesignPattern.decorator.CaramelDecorator;
-import structuralDesignPattern.decorator.Coffee;
-import structuralDesignPattern.decorator.MilkDecorator;
-import structuralDesignPattern.decorator.SimpleCoffee;
-import structuralDesignPattern.facade.AuthenticationService;
-import structuralDesignPattern.facade.MarketService;
-import structuralDesignPattern.facade.NotificationService;
-import structuralDesignPattern.facade.OrderService;
-import structuralDesignPattern.facade.PurchaseCryptoFacade;
-import structuralDesignPattern.facade.WalletService;
-import structuralDesignPattern.flyweight.Tree;
-import structuralDesignPattern.flyweight.TreeFactory;
-import structuralDesignPattern.flyweight.TreeType;
-import structuralDesignPattern.proxy.Image;
-import structuralDesignPattern.proxy.ProxyImage;
+import behavioral.strategy.CreditCardPayment;
+import behavioral.strategy.CryptoPayment;
+import behavioral.strategy.PaymentProcessor;
+import behavioral.strategy.PaymentStrategy;
+import creational.abstractFactory.DesertFactory;
+import creational.abstractFactory.DesertVehicle;
+import creational.abstractFactory.DesertWeapon;
+import creational.abstractFactory.RegionFactory;
+import creational.abstractFactory.SnowFactory;
+import creational.builder.Phone;
+import creational.builder.PhoneBuilder;
+import creational.factory.Vehicle;
+import creational.factory.VehicleFactory;
+import creational.factory.VehicleType;
+import creational.prototype.Rifle;
+import creational.singleton.ConnectionPoolManager;
+import structural.adapter.AudioPlayer;
+import structural.bridge.Circle;
+import structural.bridge.RasterRenderer;
+import structural.bridge.Rectangle;
+import structural.bridge.VectorRenderer;
+import structural.composite.CompositeShapes;
+import structural.composite.Square;
+import structural.composite.Triangle;
+import structural.decorator.CaramelDecorator;
+import structural.decorator.Coffee;
+import structural.decorator.MilkDecorator;
+import structural.decorator.SimpleCoffee;
+import structural.facade.AuthenticationService;
+import structural.facade.MarketService;
+import structural.facade.NotificationService;
+import structural.facade.OrderService;
+import structural.facade.PurchaseCryptoFacade;
+import structural.facade.WalletService;
+import structural.flyweight.Tree;
+import structural.flyweight.TreeFactory;
+import structural.flyweight.TreeType;
+import structural.proxy.Image;
+import structural.proxy.ProxyImage;
 
 public class Start {
 
